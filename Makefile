@@ -1,6 +1,6 @@
 #
 # C Testing Librairy
-# Made by Titren Loîc & Ardouin Th&o
+# Made by Titren Loïc & Ardouin Théo
 #
 # compile the testing librairy
 #
