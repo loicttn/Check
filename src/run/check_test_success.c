@@ -1,11 +1,11 @@
 /*
-*  Author: TITREN Loïc
-*  Create Time: 2019-06-03 09:51:00
-*  ;------------:
-*  Modified by: TITREN Loïc
-*  Modified time: 2019-06-03 09:39:44
-*  Description: Runs unit tests one by one
-*/
+ *  Author: TITREN Loïc
+ *  Create Time: 2019-06-03 11:26:36
+ *  :------------:
+ *  Modified by: TITREN Loïc
+ *  Modified time: 2019-06-03 13:27:30
+ *  Description:
+ */
 
 #include "Check.h"
 #include "Check_internal.h"
@@ -21,15 +21,16 @@ void check_crash_exit_status(ck_tests_t *test, int status)
         else if (WTERMSIG(status) == SIGFPE)
             dprintf(STDERR, "Floating exception");
     }
-    if (WCOREDUMP(status))
+    if (WCOREDUMP(status)) {
+        test->test_state = TEST_CRASH;
         dprintf(STDERR, " (core dumped)");
+    }
     if (WCOREDUMP(status) || WIFSIGNALED(status))
         dprintf(STDERR, "\n");
 }
 
 void check_test_success(ck_tests_t *test, int status)
 {
-    printf("%s\t", test->test_name);
     switch(test->test_state) {
         case (TEST_OK):
             printf(GREEN "SUCCESS\n" RESET);
