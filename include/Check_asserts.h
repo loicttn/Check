@@ -3,7 +3,7 @@
  *  Create Time: 2019-06-03 11:59:03
  *  :------------:
  *  Modified by: TITREN Loïc
- *  Modified time: 2019-06-03 13:19:12
+ *  Modified time: 2019-06-03 15:48:02
  *  Description:
  */
 
@@ -13,6 +13,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void assert_eq_ptr(void *str1, void *str2);
-
+void ck_assert_eq_ptr(void *str1, void *str2);
+#define ASSERT_PTR ck_assert_eq_ptr
 #endif
