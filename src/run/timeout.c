@@ -1,10 +1,10 @@
 /*
  *  Author: TITREN Loïc
- *  Create Time: 2019-06-03 10:20:44
- *  ;------------:
+ *  Create Time: 2019-06-03 11:56:00
+ *  :------------:
  *  Modified by: TITREN Loïc
- *  Modified time: 2019-06-03 09:39:44
- *  Description: Runs unit tests one by one
+ *  Modified time: 2019-06-03 13:28:18
+ *  Description:
  */
 
 #include "Check_tests_creator.h"
@@ -23,7 +23,7 @@ void set_timeout(ck_tests_t *test)
     unsigned int timeout = 2;
 
     if (pthread_create(&thread_id, NULL, &check_timeout, (void *)&timeout)) {
-        dprintf(2, "FATAL ERROR: cannot create a new thread\n");
+        dprintf(STDERR, "FATAL ERROR: cannot create a new thread\n");
         exit(EXIT_FAILURE);
     }
 }

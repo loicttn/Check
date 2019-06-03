@@ -2,8 +2,8 @@
  *  Author: Ardouin théo
  *  Create Time: 2019-06-02 01:11:46
  *  :------------:
- *  Modified by: Ardouin théo
- *  Modified time: 2019-06-03 03:24:26
+ *  Modified by: TITREN Loïc
+ *  Modified time: 2019-06-03 13:17:18
  *  Description: librairy testing include
  */
 
@@ -12,6 +12,7 @@
 
 #include "Check_tests_creator.h"
 #include "Check_internal.h"
+#include "Check_asserts.h"
 
 #define TEST(name)                                                  \
     void test_##name();                                             \

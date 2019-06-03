@@ -1,10 +1,10 @@
 /*
  *  Author: TITREN Loïc
- *  Create Time: 2019-06-03 09:39:44
- *  ;------------:
+ *  Create Time: 2019-06-03 11:55:37
+ *  :------------:
  *  Modified by: TITREN Loïc
- *  Modified time: 2019-06-03 09:39:44
- *  Description: Runs unit tests one by one
+ *  Modified time: 2019-06-03 13:38:40
+ *  Description:
  */
 
 #include "Check.h"
@@ -17,6 +17,7 @@ static int run_unit_test(ck_tests_t *test)
     int pid = 0;
     int status = 0;
 
+    printf("=============================================\n%s\n", test->test_name);
     pid = fork();
     switch(pid) {
         case -1:
@@ -28,7 +29,10 @@ static int run_unit_test(ck_tests_t *test)
             exit(TEST_OK);
         default:
             wait(&status);
-            test->test_state = WEXITSTATUS(status);
+            if ((status >= 127 && status <= 156))
+                test->test_state = TEST_CRASH;
+            else
+               test->test_state = WEXITSTATUS(status);
     }
     return (status);
 }
@@ -39,7 +43,7 @@ int run_tests(ck_tests_t *tests)
 
     for (ck_tests_t *tail = tests; tail; tail = tail->next) {
         run_unit_test(tail);
-        check_crash_exit_status(tail, status);
+        // check_crash_exit_status(tail, status);
         check_test_success(tail, status);
     }
     return (0);

@@ -19,6 +19,7 @@ SRC 	= 	src/main.c						\
 			src/run/run_tests.c				\
 			src/run/timeout.c				\
 			src/run/check_test_success.c	\
+			src/assert/asserts.c
 
 CFLAGS	=	-iquote./include/ -Wall -Wextra -Werror=implicit-function-declaration -O2
 

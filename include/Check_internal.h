@@ -2,8 +2,8 @@
  *  Author: Ardouin théo
  *  Create Time: 2019-06-02 01:20:49
  *  ;------------:
- *  Modified by: Ardouin théo
- *  Modified time: 2019-06-03 03:31:36
+ *  Modified by: TITREN Loïc
+ *  Modified time: 2019-06-03 13:11:43
  *  Description:
  */
 
@@ -32,9 +32,9 @@
 typedef enum ck_test_states_e {
     NONE            =   0,          // test has not been run yet
     TEST_OK         =   1,          // test has been validated
-    TEST_KO         =   -1,         // test has failed
-    TEST_CRASH      =   -2,         // test has crashed
-    TEST_TIMEOUT    =   -3,         // test has taken too much time
+    TEST_KO         =   2,         // test has failed
+    TEST_CRASH      =   3,         // test has crashed
+    TEST_TIMEOUT    =   4,         // test has taken too much time
 } ck_test_state;
 
 
