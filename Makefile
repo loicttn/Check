@@ -13,11 +13,14 @@ CC		?=	gcc
 
 RM		?= 	rm -f
 
-SRC 	= 	src/main.c				\
-			src/check_init.c		\
-			src/find_test_ptr.c
+SRC 	= 	src/main.c						\
+			src/check_init.c				\
+			src/find_test_ptr.c				\
+			src/run/run_tests.c				\
+			src/run/timeout.c				\
+			src/run/check_test_success.c	\
 
-CFLAGS	=	-iquote./src/ -Wall -Wextra -Werror=implicit-function-declaration -O2
+CFLAGS	=	-iquote./include/ -Wall -Wextra -Werror=implicit-function-declaration -O2
 
 OBJ	=	$(SRC:.c=.o)
 
