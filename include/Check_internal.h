@@ -30,11 +30,11 @@
 /* control of out-going tests */
 
 typedef enum ck_test_states_e {
-    NONE,                           // test has not been run yet
-    TEST_OK,                        // test has been validated
-    TEST_KO,                        // test has failed
-    TEST_CRASH,                     // test has crashed
-    TEST_TIMEOUT,                   // test has taken too much time
+    NONE            =   0,          // test has not been run yet
+    TEST_OK         =   1,          // test has been validated
+    TEST_KO         =   -1,         // test has failed
+    TEST_CRASH      =   -2,         // test has crashed
+    TEST_TIMEOUT    =   -3,         // test has taken too much time
 } ck_test_state;
 
 
@@ -52,7 +52,5 @@ typedef struct ck_tests_list_s {
 
 ck_tests_t *get_next_test_ptr(void *handle, int n);
 ck_tests_t *init_test_list(void);
-
-
 
 #endif  /* !INTERNAL_H_ */
