@@ -2,5 +2,8 @@
 
 TEST(lol)
 {
-    printf("lal\n");
+}
+
+TEST(lil)
+{
 }

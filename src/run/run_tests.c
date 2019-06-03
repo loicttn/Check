@@ -28,7 +28,6 @@ static int run_unit_test(ck_tests_t *test)
             exit(TEST_OK);
         default:
             wait(&status);
-            printf("%d\n", WEXITSTATUS(status));
             test->test_state = WEXITSTATUS(status);
     }
     return (status);
