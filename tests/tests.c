@@ -86,7 +86,7 @@ TEST(ter_int)
 
 TEST(_float)
 {
-    ASSERT(1.5, 1.5);
+    ck_assert_eq(1.5, 1);
 }
 
 TEST(bis_float)
