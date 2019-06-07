@@ -68,3 +68,33 @@ TEST(null_3)
 {
     ASSERT_PTR(NULL, NULL);
 }
+
+TEST(_int)
+{
+    ASSERT(1, 1);
+}
+
+TEST(bis_int)
+{
+    ASSERT(-1, -1);
+}
+
+TEST(ter_int)
+{
+    ASSERT(41, 40);
+}
+
+TEST(_float)
+{
+    ck_assert_eq(1.5, 1);
+}
+
+TEST(bis_float)
+{
+    ASSERT(-1.1, -1.1);
+}
+
+TEST(ter_float)
+{
+    ASSERT(41.9, 41.99);
+}
