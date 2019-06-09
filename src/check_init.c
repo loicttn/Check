@@ -3,17 +3,42 @@
  *  Create Time: 2019-06-02 01:19:44
  *  ;------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-03 12:11:53
+ *  Modified time: 2019-06-09 13:57:40
  *  Description:
  */
 
+#include <stdarg.h>
 #include <dlfcn.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "Check_internal.h"
 
-ck_tests_t *init_new_test(const char *name, void (*fptr)(void))
+args_action_t *parse_external_argument(const char *name);
+
+char **get_args_tab(int nb_args, va_list va)
+{
+    char **tab;
+
+    printf("nb args  = %d\n\n", nb_args);
+    if ((tab = (char **) malloc(sizeof(char *) * (nb_args + 1))) == NULL) {
+        dprintf(STDERR, RED "An error as occured\n" RESET);
+        exit (EXIT_FAILURE);
+    }
+
+    const char *args;
+
+    for (int i = 0; i < nb_args; i++) {
+        args = va_arg(va, const char *);
+        if ((tab[i] = strdup(args)) == NULL) {
+            dprintf(STDERR, RED "An error as occured\n" RESET);
+            exit (EXIT_FAILURE);
+        }
+    }
+    return (tab);
+}
+
+ck_tests_t *init_new_test(const char *name, void (*fptr)(void), const char *args)
 {
     ck_tests_t *new;
 
@@ -22,7 +47,9 @@ ck_tests_t *init_new_test(const char *name, void (*fptr)(void))
         dprintf(STDERR, RED "An error as occured\n" RESET);
         exit (EXIT_FAILURE);
     }
-    new->fptr = fptr;
+
+    new->action = parse_external_argument(args);
+    new->fptr   = fptr;
     strcpy(new->test_name, name);
     new->test_state = NONE;
     new->next = NULL;

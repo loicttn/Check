@@ -2,8 +2,8 @@
  *  Author: ARDOUIN théo
  *  Create Time: 2019-06-02 01:11:46
  *  :------------:
- *  Modified by: ARDOUIN théo
- *  Modified time: 2019-06-03 03:24:26
+ *  Modified by: Ardouin théo
+ *  Modified time: 2019-06-09 13:36:32
  *  Description: librairy testing include
  */
 
@@ -13,15 +13,20 @@
 #include "Check_tests_creator.h"
 #include "Check_internal.h"
 
-#define TEST(name)                                                  \
-    void test_##name();                                             \
-    ck_tests_t *ck_concat(test_, __COUNTER__)(void) {               \
-        return (init_new_test(#name, &test_##name));                \
-    }                                                               \
-    void test_##name()
+#define TEST(...)    \
+    TEST_(__VA_ARGS__)
 
-#define ck_assert_eq(a, b)
-#define ck_assert_neq(a, b)
-#define ck_assert_null(a)
+#define TEST_(X, ...)    \
+    TEST__(X, 1, __VA_ARGS__)
+
+#define TEST__(name, X...)   \
+    TEST___(name, #X + 2)
+
+#define TEST___(name, list)                                                 \
+    void test_##name();                                                     \
+    ck_tests_t *ck_concat(test_, __COUNTER__)(void) {                       \
+        return (init_new_test(#name, &test_##name, list));                  \
+    }                                                                       \
+    void test_##name()
 
 #endif  /* !CHECK_H_ */
