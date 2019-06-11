@@ -25,7 +25,7 @@
 #define TEST___(name, list)                                                 \
     void test_##name();                                                     \
     ck_tests_t *ck_concat(test_, __COUNTER__)(void) {                       \
-        return (init_new_test(#name, &test_##name, list));                  \
+        return (ck_init_new_test(#name, &test_##name, list));                  \
     }                                                                       \
     void test_##name()
 

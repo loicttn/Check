@@ -3,7 +3,7 @@
  *  Create Time: 2019-06-02 01:20:49
  *  ;------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-09 14:00:16
+ *  Modified time: 2019-06-12 00:43:34
  *  Description:
  */
 
@@ -78,19 +78,20 @@ typedef enum ck_test_states_e {
     TEST_TIMEOUT,                   // test has taken too much time
 } ck_test_state;
 
-typedef struct exec_list_s {
+typedef struct ck_exec_list_s {
     const char *script;
-    struct exec_list_s *next;
-} exec_list_t;
+    ck_test_state condition;
+    struct ck_exec_list_s *next;
+} ck_exec_list_t;
 
-typedef struct redirection_s {
-    int redirected_fd;
-    struct redirection_s *next;
-} redirection_t;
+typedef struct ck_timeout_s {
+    int usec;
+    struct ck_timeout_s *next;
+} ck_timeout_t;
 
 typedef struct args_action_s {      // parse args to set up bonus test action
-    exec_list_t   *exec_l;          // specifics script to exec if the test is passed, failed, etc...
-    redirection_t *red_l;           // specifics redirection
+    ck_exec_list_t *exec_l;         // specifics script to exec if the test is passed, failed, etc...
+    ck_timeout_t   *tim_l;          // specifics redirection
 } args_action_t;
 
 /* Unit testing function list */
@@ -106,9 +107,7 @@ typedef struct ck_tests_list_s {
 
 /* function declaration */
 
-ck_tests_t *get_next_test_ptr(void *handle, int n);
-ck_tests_t *init_test_list(void);
-
-
+ck_tests_t *ck_get_next_test_ptr(void *handle, int n);
+ck_tests_t *ck_init_test_list(void);
 
 #endif  /* !INTERNAL_H_ */
