@@ -24,14 +24,13 @@ void ck_assert_eq_ptr(void *str1, void *str2)
         strB += 1;
     }
     if (*strA || *strB) {
-        dprintf(2, RED "%s != %s\n" RESET, (char *)str1, (char *)str2);
+        dprintf(STDERR, RED "%s != %s\n" RESET, (char *)str1, (char *)str2);
         exit(TEST_KO);
     }
 }
 
 void ck_assert_eq(double a, double b)
 {
-    printf("HERE\n");
     if (a != b)
         exit(TEST_KO);
 }

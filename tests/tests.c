@@ -1,4 +1,5 @@
 #include "Check.h"
+#include "Check_redirections.h"
 #include <string.h>
 
 TEST(lol)
@@ -71,17 +72,17 @@ TEST(null_3)
 
 TEST(_int)
 {
-    ASSERT(1, 1);
+    CK_ASSERT(1, 1);
 }
 
 TEST(bis_int)
 {
-    ASSERT(-1, -1);
+    CK_ASSERT(-1, -1);
 }
 
 TEST(ter_int)
 {
-    ASSERT(41, 40);
+    CK_ASSERT(41, 40);
 }
 
 TEST(_float)
@@ -91,10 +92,37 @@ TEST(_float)
 
 TEST(bis_float)
 {
-    ASSERT(-1.1, -1.1);
+    CK_ASSERT(-1.1, -1.1);
 }
 
 TEST(ter_float)
 {
-    ASSERT(41.9, 41.99);
+    CK_ASSERT(41.9, 41.99);
+}
+
+static void write_n_char_in_std(char c, int n, int std)
+{
+    for (int i = 0; i < n; i += 1)
+        write(std, &c, 1);
+}
+
+TEST(redirect_std_failure)
+{
+    REDIRECT_STD(0);
+    write_n_char_in_std('l', 5, 0);
+    ASSERT_STD_EQ(0, "lllla");
+}
+
+TEST(redirect_std_failure_bis)
+{
+    REDIRECT_STD(0);
+    write_n_char_in_std('l', 5, 0);
+    ASSERT_STD_EQ(1, "lllla");
+}
+
+TEST(redirect_std_success)
+{
+    REDIRECT_STD(1);
+    write_n_char_in_std('l', 5, 1);
+    ASSERT_STD_EQ(1, "lllll");
 }

@@ -16,5 +16,5 @@
 void ck_assert_eq_ptr(void *str1, void *str2);
 #define ASSERT_PTR(a, b) ck_assert_eq_ptr(a, b)
 void ck_assert_eq(double a, double b);
-#define ASSERT(a, b) ck_assert_eq(a, b)
+#define CK_ASSERT(a, b) ck_assert_eq(a, b)
 #endif

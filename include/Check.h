@@ -21,8 +21,4 @@
     }                                                               \
     void test_##name()
 
-#define ck_assert_eq(a, b)
-#define ck_assert_neq(a, b)
-#define ck_assert_null(a)
-
 #endif  /* !CHECK_H_ */

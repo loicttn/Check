@@ -30,4 +30,8 @@ void set_timeout(ck_tests_t *test);
 
 /// Calls all loaded tests one by one
 int run_tests(ck_tests_t *tests);
+
+/// Prints tests result and percentage
+void ck_print_result(void);
+
 #endif
