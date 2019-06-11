@@ -1,9 +1,9 @@
 /*
  *  Author: TITREN Loïc
- *  Create Time: 2019-06-03 11:58:27
+ *  Create Time: 2019-06-03 16:16:47
  *  :------------:
  *  Modified by: TITREN Loïc
- *  Modified time: 2019-06-03 15:51:40
+ *  Modified time: 2019-06-03 16:20:18
  *  Description:
  */
 
@@ -24,7 +24,13 @@ void ck_assert_eq_ptr(void *str1, void *str2)
         strB += 1;
     }
     if (*strA || *strB) {
-        dprintf(2, RED "%s != %s\n" RESET, (char *)str1, (char *)str2);
+        dprintf(STDERR, RED "%s != %s\n" RESET, (char *)str1, (char *)str2);
         exit(TEST_KO);
     }
+}
+
+void ck_assert_eq(double a, double b)
+{
+    if (a != b)
+        exit(TEST_KO);
 }

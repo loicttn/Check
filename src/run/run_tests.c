@@ -12,12 +12,17 @@
 #include "Check_tests_creator.h"
 #include "Check_run_tests.h"
 
+extern const int CK_SEPARATOR_LENGHT;
+
 static int run_unit_test(ck_tests_t *test)
 {
     int pid = 0;
     int status = 0;
 
-    printf("=============================================\n%s\n", test->test_name);
+    for (int i = 0; i < CK_SEPARATOR_LENGHT; i += 1)
+        printf("_");
+    printf("\n");
+    printf("\n%s\n", test->test_name);
     pid = fork();
     switch(pid) {
         case -1:
@@ -29,7 +34,7 @@ static int run_unit_test(ck_tests_t *test)
             exit(TEST_OK);
         default:
             wait(&status);
-            if ((status >= 127 && status <= 156))
+            if (WTERMSIG(status))
                 test->test_state = TEST_CRASH;
             else
                test->test_state = WEXITSTATUS(status);
@@ -43,8 +48,8 @@ int run_tests(ck_tests_t *tests)
 
     for (ck_tests_t *tail = tests; tail; tail = tail->next) {
         run_unit_test(tail);
-        // check_crash_exit_status(tail, status);
         check_test_success(tail, status);
     }
+    ck_print_result();
     return (0);
 }

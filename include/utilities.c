@@ -1,0 +1,1 @@
+const int CK_SEPARATOR_LENGHT = 42;
