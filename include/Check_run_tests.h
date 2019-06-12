@@ -2,8 +2,8 @@
  *  Author: TITREN Loïc
  *  Create Time: 2019-06-03 09:39:44
  *  ;------------:
- *  Modified by: TITREN Loïc
- *  Modified time: 2019-06-03 09:39:44
+ *  Modified by: Ardouin théo
+ *  Modified time: 2019-06-12 02:41:05
  *  Description: Runs unit tests one by one
  */
 
@@ -30,4 +30,8 @@ void set_timeout(ck_tests_t *test);
 
 /// Calls all loaded tests one by one
 int run_tests(ck_tests_t *tests);
+
+/// Prints tests result and percentage
+void ck_print_result(void);
+
 #endif

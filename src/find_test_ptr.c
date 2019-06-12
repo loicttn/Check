@@ -16,6 +16,7 @@
 
 #include "Check_tests_creator.h"
 #include "Check_internal.h"
+#include "Check_run_tests.h"
 
 ck_tests_t *ck_get_next_test_ptr(void *handle, int n)
 {
@@ -38,9 +39,10 @@ int ck_lunch_test(void)
 {
     ck_tests_t *list = ck_init_test_list();
 
-    while (list) {
-        list->fptr();
-        list = list->next;
-    }
+    // while (list) {
+    //     list->fptr();
+    //     list = list->next;
+    // }
+    run_tests(list);
     return (EXIT_SUCCESS);
 }

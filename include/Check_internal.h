@@ -1,9 +1,9 @@
 /*
- *  Author: ARDOUIN théo
+ *  Author: Ardouin théo
  *  Create Time: 2019-06-02 01:20:49
  *  ;------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-12 00:43:34
+ *  Modified time: 2019-06-12 02:42:36
  *  Description:
  */
 
@@ -14,6 +14,7 @@
 #define RED   "\x1b[31m"
 #define GREEN "\x1b[32m"
 #define BLUE  "\x1b[34m"
+#define ORANGE "\033[0;33m"
 
 #define STDIN  0
 #define STDOUT 1
@@ -24,11 +25,6 @@
 
 #define concat_(a, b)    a##b
 #define ck_concat(a, b)  concat_(a, b)
-
-#define STRINGIFY(x) #x
-
-#define FIRSTARG(X, ...)    (X)
-#define RESTARGS(X, ...)    (__VA_ARGS__)
 
 /* __VA_ARGS__ counter */
 

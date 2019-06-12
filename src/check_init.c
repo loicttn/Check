@@ -67,8 +67,8 @@ ck_tests_t *ck_init_test_list(void)
 
     // search all the test and append them to a linked list
     ck_tests_t *head = NULL;
-    ck_tests_t *prev;
-    ck_tests_t *keeper;
+    ck_tests_t *prev = NULL;
+    ck_tests_t *keeper = NULL;
 
     for (int n = 0; (keeper = ck_get_next_test_ptr(handle, n)); n++) {
         if (n == 0)

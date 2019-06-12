@@ -14,9 +14,15 @@ CC		?=	gcc
 RM		?= 	rm -f
 
 SRC 	= 	src/main.c							\
+			include/utilities.c					\
 			src/check_init.c					\
 			src/parsing/get_action_from_test.c	\
-			src/find_test_ptr.c
+			src/find_test_ptr.c					\
+			src/run/run_tests.c					\
+			src/run/timeout.c					\
+			src/run/check_test_success.c		\
+			src/assert/asserts.c				\
+			src/redirections/get_redirection.c
 
 CFLAGS	=	-iquote./include/ -Wall -Wextra -Werror=implicit-function-declaration -O2
 
