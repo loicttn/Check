@@ -18,6 +18,7 @@ SRC 	= 	src/main.c							\
 			src/check_init.c					\
 			src/parsing/get_action_from_test.c	\
 			src/find_test_ptr.c					\
+			src/displayer/messages.c			\
 			src/run/run_tests.c					\
 			src/run/timeout.c					\
 			src/run/check_test_success.c		\

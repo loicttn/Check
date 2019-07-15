@@ -3,7 +3,7 @@
  *  Create Time: 2019-06-03 11:26:36
  *  :------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-12 02:48:52
+ *  Modified time: 2019-07-15 14:32:20
  *  Description:
  */
 
@@ -36,6 +36,7 @@ void ck_print_result(void)
 
 void check_test_success(ck_tests_t *test, __attribute__((unused)) int status)
 {
+    printf("\n");
     total += 1;
     switch(test->test_state) {
         case (TEST_OK):

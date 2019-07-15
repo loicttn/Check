@@ -3,7 +3,7 @@
  *  Create Time: 2019-06-02 00:22:13
  *  ;------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-12 01:40:47
+ *  Modified time: 2019-07-15 10:34:12
  *  Description:
  */
 
@@ -34,15 +34,9 @@ ck_tests_t *ck_get_next_test_ptr(void *handle, int n)
 }
 
 //  find the pointer on each test function and calls it
-
 int ck_lunch_test(void)
 {
     ck_tests_t *list = ck_init_test_list();
-
-    // while (list) {
-    //     list->fptr();
-    //     list = list->next;
-    // }
     run_tests(list);
     return (EXIT_SUCCESS);
 }

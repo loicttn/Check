@@ -3,17 +3,17 @@
  *  Create Time: 2019-06-02 01:20:49
  *  ;------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-12 02:42:36
+ *  Modified time: 2019-07-15 14:32:00
  *  Description:
  */
 
 #ifndef INTERNAL_H_
 #define INTERNAL_H_
 
-#define RESET "\x1b[0m"
-#define RED   "\x1b[31m"
-#define GREEN "\x1b[32m"
-#define BLUE  "\x1b[34m"
+#define RESET  "\x1b[0m"
+#define RED    "\x1b[31m"
+#define GREEN  "\x1b[32m"
+#define BLUE   "\x1b[34m"
 #define ORANGE "\033[0;33m"
 
 #define STDIN  0
@@ -74,20 +74,27 @@ typedef enum ck_test_states_e {
     TEST_TIMEOUT,                   // test has taken too much time
 } ck_test_state;
 
+typedef struct ck_message_s {
+    char *color;
+    char *text;
+    int   std;
+    struct ck_message_s *next;
+} ck_message_t;
+
 typedef struct ck_exec_list_s {
-    const char *script;
-    ck_test_state condition;
-    struct ck_exec_list_s *next;
+    const char              *script;
+    ck_test_state            condition;
+    struct ck_exec_list_s   *next;
 } ck_exec_list_t;
 
 typedef struct ck_timeout_s {
-    int usec;
+    int                  usec;
     struct ck_timeout_s *next;
 } ck_timeout_t;
 
 typedef struct args_action_s {      // parse args to set up bonus test action
-    ck_exec_list_t *exec_l;         // specifics script to exec if the test is passed, failed, etc...
-    ck_timeout_t   *tim_l;          // specifics redirection
+    ck_exec_list_t  *exec_l;        // specifics script to exec if the test is passed, failed, etc...
+    ck_timeout_t    *tim_l;         // specifics redirection
 } args_action_t;
 
 /* Unit testing function list */
@@ -97,11 +104,15 @@ typedef struct ck_tests_list_s {
     void (*fptr)(void);             // function pointers to test
     char  *test_name;               // name of the test
     ck_test_state test_state;       // out going of the test
+    ck_message_t  *msg_l;           //associated message to print while test is luncher
     struct ck_tests_list_s *next;   // ptr to next test
 } ck_tests_t;
 
 
 /* function declaration */
+
+void create_message(ck_message_t **msg, int std, const char *color, const char *text);
+void display_messages(ck_message_t *msg_l);
 
 ck_tests_t *ck_get_next_test_ptr(void *handle, int n);
 ck_tests_t *ck_init_test_list(void);

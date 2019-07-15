@@ -3,7 +3,7 @@
  *  Create Time: 2019-06-02 01:19:44
  *  :------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-12 01:39:43
+ *  Modified time: 2019-07-15 11:54:58
  *  Description:
  */
 
@@ -14,7 +14,7 @@
 #include <string.h>
 #include "Check_internal.h"
 
-args_action_t *ck_parse_external_argument(const char *name);
+args_action_t *ck_parse_external_argument(const char *name, ck_tests_t *test);
 
 char **get_args_tab(int nb_args, va_list va)
 {
@@ -47,7 +47,7 @@ ck_tests_t *ck_init_new_test(const char *name, void (*fptr)(void), const char *a
         exit (EXIT_FAILURE);
     }
 
-    new->action = ck_parse_external_argument(args);
+    new->action = ck_parse_external_argument(args, new);
     new->fptr   = fptr;
     strcpy(new->test_name, name);
     new->test_state = NONE;

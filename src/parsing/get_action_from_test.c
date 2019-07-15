@@ -3,7 +3,7 @@
  *  Create Time: 2019-06-09 13:50:48
  *  :------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-12 01:29:36
+ *  Modified time: 2019-07-15 14:26:04
  *  Description:
  */
 
@@ -30,6 +30,7 @@ static char *get_strtok_ite(const char *name, const char *_spliter, int i)
 {
     char *keeper = strdup(name);
     char *sto = strtok(keeper, _spliter);
+
     for (int j = 0; j < i; j++) {
         sto = strtok(NULL, _spliter);
     }
@@ -37,13 +38,12 @@ static char *get_strtok_ite(const char *name, const char *_spliter, int i)
 }
 
 #define exec_failure    \
-do {                                                                                                                \
-    dprintf(STDERR, RED "error appeared while trying to use .exec built in.\n" RESET);                           \
-    dprintf(STDERR, RED "USAGE :\t.exec {.condition failure/succeed/timeout/crashed} SCRIPT_TO_EXEC\n" RESET);   \
-    return;                                                                                                         \
+do {    \
+    create_message(&(test->msg_l), STDERR, RED, "error appeared while trying to use .exec built in.\nUSAGE :\t.exec {.condition failure/succeed/timeout/crashed} SCRIPT_TO_EXEC\n"); \
+    return; \
 } while(false)
 
-static void append_exec(args_action_t *action, char *_act)
+static void append_exec(args_action_t *action, char *_act, ck_tests_t *test)
 {
     ck_exec_list_t *ex_l = (ck_exec_list_t *)malloc(sizeof(ck_exec_list_t));
 
@@ -76,29 +76,30 @@ static void append_exec(args_action_t *action, char *_act)
         ex_l->next     = action->exec_l;
         action->exec_l = ex_l;
 
+        char buff[500];
         if (ex_l->condition == TEST_KO) {
-            printf("exec :\n execute %s if failed\n",  ex_l->script);
+            sprintf(buff, "exec :\n\texecute %s if failed\n",  ex_l->script);
         } else if (ex_l->condition == TEST_OK) {
-            printf("exec :\n execute %s if succeed\n", ex_l->script);
+            sprintf(buff, "exec :\n\texecute %s if succeed\n", ex_l->script);
         } else if (ex_l->condition == TEST_TIMEOUT) {
-            printf("exec :\n execute %s if timeout\n", ex_l->script);
+            sprintf(buff, "exec :\n\texecute %s if timeout\n", ex_l->script);
         }
+        create_message(&(test->msg_l), 1, RESET, buff);
     } else {
         free(_act);
-        free(ex_l);
         exec_failure;
     }
 }
 
 #define time_failure    \
-do {                                                                                        \
-    dprintf(STDERR, RED "error appeared while trying to use .timeout built in.\n" RESET);   \
-    dprintf(STDERR, RED "USAGE :\t.timeout TIME(in usec)\n" RESET);                         \
-    return;                                                                                                         \
+do {                                                                                                                        \
+        create_message(&(test->msg_l), STDERR, RED,    \
+        "error appeared while trying to use .timeout built in.\nUSAGE :\t.timeout TIME(in usec)\n");\
+    return; \
 } while(false)
 
 
-static void append_timeout(args_action_t *action, char *_act)
+static void append_timeout(args_action_t *action, char *_act, ck_tests_t *test)
 {
     ck_timeout_t *tim_l = (ck_timeout_t *)malloc(sizeof(ck_timeout_t));
 
@@ -113,17 +114,20 @@ static void append_timeout(args_action_t *action, char *_act)
     tim_l->usec = atoi(_act);
     tim_l->next = action->tim_l;
     action->tim_l = tim_l;
-    printf("timer :\n time (usec) before timeout %d\n", tim_l->usec);
+    char buff[500];
+    sprintf(buff, "timer :\n\ttime (usec) before timeout %d\n", tim_l->usec);
+    create_message(&(test->msg_l), STDERR, RESET, buff);
 }
 
-args_action_t *ck_parse_external_argument(const char *name)
+// parse all test's flag line.
+args_action_t *ck_parse_external_argument(const char *name, ck_tests_t *test)
 {
     char *sto;
 
     /* local struct for redirection keyword to specifics function   */
     typedef struct local_action_s {
         const char *keyword;
-        void (*fptr)(args_action_t *, char *);
+        void (*fptr)(args_action_t *, char *, ck_tests_t *);
     } local_action_t;
 
     /* keyword handled                                              */
@@ -145,7 +149,7 @@ args_action_t *ck_parse_external_argument(const char *name)
     for (char *keeper = strtok(strdup(name), ","); keeper; keeper = get_strtok_ite(name, ",", i)) {
         for (int i = 0; act[i].keyword; i++) {
             if ((sto = strstr(keeper, act[i].keyword))) {
-                act[i].fptr(action, strdup(sto + strlen(act[i].keyword)));
+                act[i].fptr(action, strdup(sto + strlen(act[i].keyword)), test);
             }
         }
         i++;

@@ -3,7 +3,7 @@
  *  Create Time: 2019-06-03 11:55:37
  *  :------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-12 02:33:03
+ *  Modified time: 2019-07-15 11:58:57
  *  Description:
  */
 
@@ -23,6 +23,7 @@ static int run_unit_test(ck_tests_t *test)
         printf("_");
     printf("\n");
     printf("\n%s\n", test->test_name);
+    display_messages(test->msg_l);
     pid = fork();
     switch(pid) {
         case -1:

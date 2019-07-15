@@ -1,8 +1,11 @@
 #include "Check_asserts.h"
 #include "Check_redirections.h"
-#include <string.h>
 #include "Check.h"
+#include <string.h>
 #include <unistd.h>
+
+void ck_assert_eq_ptr(void *str1, void *str2);
+void ck_assert_eq(double a, double b);
 
 TEST(xxx, .exec /ZE/)
 {
@@ -10,6 +13,7 @@ TEST(xxx, .exec /ZE/)
 
 TEST(xxz, .exec , .redirect 2)
 {
+    printf("aa");
 }
 
 TEST(ez,.exec .condition failure ls, .timeout 3)
@@ -20,9 +24,14 @@ TEST(axx, .timeout e, .exec ls)
 {
 }
 
-TEST(xax)
+TEST(xax, .timeout 2000)
 {
     while(1);
+}
+
+TEST(ax, .timeout 2000)
+{
+    sleep(1);
 }
 
 TEST(lil)
@@ -105,7 +114,7 @@ TEST(ter_int)
 
 TEST(_float)
 {
-    ck_assert_eq(1.5, 1);
+    CK_ASSERT(1.5, 1);
 }
 
 TEST(bis_float)
