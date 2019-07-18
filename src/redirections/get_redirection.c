@@ -13,7 +13,10 @@ void ck_redirect_std(int std)
 {
     if (std < 0 || std > 3)
         return;
-    pipe(fds[std]);
+    if (pipe(fds[std]) == -1) {
+        dprintf(2, RED"FATAL ERROR : can't execute pipe."RESET);
+        exit(TEST_KO);
+    }
     dup2(fds[std][CK_IN], std);
 }
 
@@ -29,12 +32,16 @@ void ck_assert_std(int std, char *cmp)
     close(fds[std][CK_IN]);
     for (int i = 0; i < cmp_len; i += 1) {
         read_chars = read(fds[std][CK_OUT], &c, 1);
-        if (read_chars != 1 && i == 0)
+        if (read_chars != 1 || i == cmp_len) {
+            close(fds[std][CK_OUT]);
             exit(TEST_KO);
+        }
         if (c != cmp[i]) {
             dprintf(STDERR, "%c != %c\n", c, cmp[i]);
+            close(fds[std][CK_OUT]);
             exit(TEST_KO);
         }
     }
-    close(fds[std][CK_OUT]);
+    close(fds[std][CK_IN]);
+    exit(TEST_OK);
 }

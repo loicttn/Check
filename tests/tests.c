@@ -16,7 +16,7 @@ TEST(xxz, .exec , .redirect 2)
     printf("aa");
 }
 
-TEST(ez,.exec .condition failure ls, .timeout 3)
+TEST(ez,.exec .condition failure ls, .exec pwd, .exec .condition timeout l, .timeout 200)
 {
 }
 
@@ -29,7 +29,7 @@ TEST(xax, .timeout 2000)
     while(1);
 }
 
-TEST(ax, .timeout 2000)
+TEST(ax, .timeout 1005)
 {
     sleep(1);
 }

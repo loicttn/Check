@@ -2,8 +2,8 @@
 #define CK_REDIRECT_H
 
 enum {
+    CK_IN = 1,
     CK_OUT = 0,
-    CK_IN = 1
 };
 
 void ck_redirect_std(int std);
