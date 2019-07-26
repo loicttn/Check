@@ -2,8 +2,8 @@
  *  Author: TITREN Loïc
  *  Create Time: 2019-06-03 09:39:44
  *  ;------------:
- *  Modified by: TITREN Loïc
- *  Modified time: 2019-06-03 09:39:44
+ *  Modified by: Ardouin théo
+ *  Modified time: 2019-06-16 18:56:02
  *  Description: Runs unit tests one by one
  */
 

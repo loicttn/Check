@@ -1,9 +1,9 @@
 /*
- *  Author: Ardouin théo
+ *  Author: ARDOUIN théo
  *  Create Time: 2019-06-02 00:22:13
  *  ;------------:
  *  Modified by: Ardouin théo
- *  Modified time: 2019-06-03 03:34:42
+ *  Modified time: 2019-07-15 10:34:12
  *  Description:
  */
 
@@ -18,7 +18,7 @@
 #include "Check_internal.h"
 #include "Check_run_tests.h"
 
-ck_tests_t *get_next_test_ptr(void *handle, int n)
+ck_tests_t *ck_get_next_test_ptr(void *handle, int n)
 {
     void *keeper_ptr;
     ck_tests_t *(*fptr)();
@@ -30,20 +30,13 @@ ck_tests_t *get_next_test_ptr(void *handle, int n)
         return (NULL);
     fptr = keeper_ptr;
     test_spe = fptr();
-    printf("test internal name -> %s\n\toutput name -> %s\n\tptr to test fct %p\n", name, test_spe->test_name, test_spe->fptr);
     return (test_spe);
 }
 
 //  find the pointer on each test function and calls it
-
 int ck_lunch_test(void)
 {
-    ck_tests_t *list = init_test_list();
-
-    // while (list) {
-    //     list->fptr();
-    //     list = list->next;
-    // }
+    ck_tests_t *list = ck_init_test_list();
     run_tests(list);
     return (EXIT_SUCCESS);
 }
